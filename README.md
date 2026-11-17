@@ -49,6 +49,7 @@ python -m pytest
 import asyncio
 from graphql_dataloader import DataLoader, InMemoryUserSource
 
+
 async def main() -> None:
     source = InMemoryUserSource.seeded()
 
@@ -58,8 +59,9 @@ async def main() -> None:
     loader = DataLoader(batch_load)
     # Five concurrent loads, three distinct keys -> ONE backend call.
     users = await asyncio.gather(loader.load(1), loader.load(2), loader.load(1))
-    print([u.name for u in users])      # ['Ada', 'Grace', 'Ada']
-    print(source.batch_call_count)      # 1
+    print([u.name for u in users])  # ['Ada', 'Grace', 'Ada']
+    print(source.batch_call_count)  # 1
+
 
 asyncio.run(main())
 ```
